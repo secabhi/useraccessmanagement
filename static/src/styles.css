@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+.content-data{
+        margin-top: 65px;
+    text-align: center;
+    color: #edeeed;
+}
+.div-padding{
+  padding:10px 0px 10px;
+  background: #1485CC;
+}
