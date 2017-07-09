@@ -1,4 +1,17 @@
 <div>
-  <div class="div-padding">RESOURCES</div>
-   <span><input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"></span>
+  <form novalidate (ngSubmit)="createResourcesList()">
+    <div class="div-padding">RESOURCES</div>
+    <span><input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="resources_name" name="resources" (input)="saveinput()" ></span>
+  </form>
+  <div class="top-margin">
+    <div class="div-padding">SAVED RESOURCESS</div>
+    <div>
+      <span *ngIf="resources_list.length>0"><span class="badge list-badge" style="margin-top: 10px;" *ngFor="let item of resources_list;let i=index">{{item}}</span></span>
+      <p *ngIf="resources_list.length==0"> Current there are no saved resourcess</p>
+    </div>
+    <div class="pull-right top-margin" *ngIf="resources_list.length>0">
+      <button type="button" class="btn btn-danger" (click)="clearResourcesList()">Clear all</button>
+      <button type="button" class="btn btn-primary" (click)="saveResourcesList()"> Save </button>
+    </div>
+  </div>
 </div>
