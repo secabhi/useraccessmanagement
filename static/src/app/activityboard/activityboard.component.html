@@ -1,28 +1,11 @@
 <div>
-  <app-sidenav></app-sidenav>
-  <section>
-    <div layout="column" layout-fill="" layout-align="top center">
-      <p>
-        The left sidenav will 'lock open' on a medium (>=960px wide) device.
-      </p>
-      <p>
-        The right sidenav will focus on a specific child element.
-      </p>
-
-      <div>
-        <button ng-click="toggleLeft()" class="md-primary" hide-gt-md="">
-          Toggle left
-        </button>
+  <app-sidenav>
+    <div class="col-md-12 top-margin">
+      <div class="col-md-4">
+        <app-resources></app-resources>
       </div>
 
-      <div>
-        <button ng-click="toggleRight()" ng-hide="isOpenRight()" class="md-primary">
-          Toggle right
-        </button>
-      </div>
     </div>
+  </app-sidenav>
 
-    <div flex=""></div>
-
-  </section>
 </div>
