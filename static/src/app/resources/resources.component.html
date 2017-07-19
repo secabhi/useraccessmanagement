@@ -1,12 +1,22 @@
 <div>
   <form novalidate (ngSubmit)="createResourcesList()">
     <div class="div-padding">RESOURCES</div>
-    <span><input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="resources_name" name="resources" (input)="saveinput()" ></span>
+
+      <md-input-container style="width: 100%">
+  <input mdInput placeholder="Add Resources" [(ngModel)]="resources_name" name="resources">
+</md-input-container>
+
+      <!--<input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="resources_name" name="resources" (input)="saveinput()" >-->
+
   </form>
   <div class="top-margin">
     <div class="div-padding">SAVED RESOURCESS</div>
     <div>
-      <span *ngIf="resources_list.length>0"><span class="badge list-badge" style="margin-top: 10px;" *ngFor="let item of resources_list;let i=index">{{item}}</span></span>
+      <span *ngIf="resources_list.length>0">
+        <md-chip-list>
+  <md-chip style="margin-top: 10px;" *ngFor="let item of resources_list;let i=index" (click)="addresources(item)">{{item}}</md-chip>
+</md-chip-list>
+      </span>
       <p *ngIf="resources_list.length==0"> Current there are no saved resourcess</p>
     </div>
     <div class="pull-right top-margin" *ngIf="resources_list.length>0">

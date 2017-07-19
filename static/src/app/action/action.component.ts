@@ -45,4 +45,8 @@ export class ActionComponent implements OnInit {
   saveActionList(){
 
   }
+
+  addInMapping(action_item){
+    
+  }
 }

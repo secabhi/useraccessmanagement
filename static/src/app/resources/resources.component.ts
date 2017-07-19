@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {resource} from "selenium-webdriver/http";
+
 
 @Component({
   selector: 'app-resources',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./resources.component.css']
 })
 export class ResourcesComponent implements OnInit {
+  @Output() resourceAdded: EventEmitter<any> = new EventEmitter();
   resources_list: any;
   resources_name: string;
   constructor() {
@@ -40,8 +43,8 @@ export class ResourcesComponent implements OnInit {
     this.resources_list = [];
   }
 
-  saveResourcesList(){
-
+  addresources(item){
+   this.resourceAdded.emit(item);
   }
 
 

@@ -1,12 +1,14 @@
 <div>
   <form novalidate (ngSubmit)="createActionList()">
     <div class="div-padding">ACTIONS</div>
-    <span><input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="action_name" name="action" (input)="saveinput()" ></span>
+    <md-input-container style="width: 100%">
+      <input mdInput placeholder="Add Actions" [(ngModel)]="action_name" name="action">
+    </md-input-container>
   </form>
   <div class="top-margin">
     <div class="div-padding">SAVED ACTIONS</div>
     <div>
-      <span *ngIf="action_list.length>0"><span class="badge list-badge" style="margin-top: 10px;" *ngFor="let item of action_list;let i=index">{{item}}</span></span>
+      <span *ngIf="action_list.length>0"><span class="badge list-badge" style="margin-top: 10px;" *ngFor="let item of action_list;let i=index" (click)="addInMapping(item)">{{item}}</span></span>
       <p *ngIf="action_list.length==0"> Current there are no saved actions</p>
     </div>
     <div class="pull-right top-margin" *ngIf="action_list.length>0">
