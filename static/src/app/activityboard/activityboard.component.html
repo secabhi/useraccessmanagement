@@ -1,11 +1,132 @@
+
 <div>
   <app-sidenav>
     <div class="col-md-12 top-margin">
-      <div class="col-md-4">
-        <app-resources></app-resources>
+      <div class="col-md-6">
+        <form *ngIf="!res_saveclicked" novalidate (ngSubmit)="createResourcesList()">
+
+
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Add Resources" [(ngModel)]="resources_name" name="resources">
+          </md-input-container>
+
+          <!--<input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="resources_name" name="resources" (input)="saveinput()" >-->
+
+        </form>
+        <div>
+        <span *ngIf="resources_list.length>0">
+          <div *ngIf="res_saveclicked" class="div-padding">Saved Resources</div>
+          <md-chip-list>
+            <md-chip style="margin-top: 10px;" *ngFor="let item of resources_list;let i=index" (click)="addresources(item)">{{item}}</md-chip>
+          </md-chip-list>
+        </span>
+          <p *ngIf="resources_list.length==0"> Current there are no saved resources</p>
+          <div class="top-margin">
+            <button class="pull-right" md-tooltip="Save"  *ngIf="!res_saveclicked && resources_list.length>0" md-mini-fab (click)="save_resources()"><md-icon>check</md-icon></button>
+            <button class="pull-right" md-tooltip="Edit"  *ngIf="res_saveclicked && resources_list.length>0" md-mini-fab (click)="res_saveclicked = !res_saveclicked"><md-icon class="fa fa-pencil-square-o"></md-icon></button>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="res_saveclicked">
+        <form *ngIf="!actions_saveclicked" novalidate (ngSubmit)="createActionsList()">
+
+
+          <md-input-container style="width: 100%">
+            <input mdInput placeholder="Add Actions" [(ngModel)]="action_name" name="actions">
+          </md-input-container>
+
+          <!--<input type="text" class="form-control" style="border-radius: 0px" placeholder="Enter"  [(ngModel)]="resources_name" name="resources" (input)="saveinput()" >-->
+
+        </form>
+        <div>
+        <span *ngIf="actions_list.length>0">
+          <div *ngIf="actions_saveclicked" class="div-padding">Saved Actions</div>
+          <md-chip-list>
+            <md-chip style="margin-top: 10px;" *ngFor="let item of actions_list;let i=index" (click)="addactions(item)">{{item}}</md-chip>
+          </md-chip-list>
+        </span>
+          <p *ngIf="actions_list.length==0"> Current there are no saved resources</p>
+          <div class="top-margin">
+            <button class="pull-right" md-tooltip="Save"  *ngIf="!actions_saveclicked && actions_list.length>0" md-mini-fab (click)="save_actions()"><md-icon>check</md-icon></button>
+            <button class="pull-right" md-tooltip="Edit"  *ngIf="actions_saveclicked && actions_list.length>0" md-mini-fab (click)="actions_saveclicked = !actions_saveclicked"><md-icon class="fa fa-pencil-square-o"></md-icon></button>
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+    <div class="col-md-12" *ngIf="actions_saveclicked">
+      <div class="col-md-3">
+        <div class="example-selected-value">Choose : </div>
+        <md-radio-group class="example-radio-group" [(ngModel)]="chooseval">
+          <md-radio-button class="example-radio-button" *ngFor="let val of radioval" [value]="val">
+            {{val}}
+          </md-radio-button>
+        </md-radio-group>
+
+      </div>
+      <div class="col-md-6">
+        <md-input-container *ngIf="chooseval=='Condition'" class="example-full-width">
+          <textarea mdInput placeholder="Please enter condition"  [(ngModel)]="condition_text" name="condition"></textarea>
+        </md-input-container>
+        <div *ngIf="chooseval=='Roles'" class="top-margin">
+          <form *ngIf="!roles_saveclicked" novalidate (ngSubmit)="createRolesList()">
+            <md-input-container style="width: 100%">
+              <input mdInput placeholder="Add Resources" [(ngModel)]="role_name" name="resources">
+            </md-input-container>
+          </form>
+          <div>
+        <span *ngIf="roles_list.length>0">
+          <div *ngIf="roles_saveclicked" class="div-padding">Saved Resources</div>
+          <md-chip-list>
+            <md-chip style="margin-top: 10px;" *ngFor="let item of roles_list;let i=index" (click)="addroles(item)">{{item}}</md-chip>
+          </md-chip-list>
+        </span>
+            <p *ngIf="roles_list.length==0"> Current there are no saved resources</p>
+            <div class="top-margin">
+              <button class="pull-right" md-tooltip="Save"  *ngIf="!roles_saveclicked && roles_list.length>0" md-mini-fab (click)="save_roles()"><md-icon>check</md-icon></button>
+              <button class="pull-right" md-tooltip="Edit"  *ngIf="roles_saveclicked && roles_list.length>0" md-mini-fab (click)="roles_saveclicked = !roles_saveclicked"><md-icon class="fa fa-pencil-square-o"></md-icon></button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 top-margin" *ngIf="roles_list.length>0 || condition_text">
+        <button md-raised-button (click)="savealldata()">Save All</button>
+        <button md-raised-button (click)="resetall()">Reset</button>
       </div>
 
     </div>
+    <div class="col-md-12" *ngIf="alldata">
+      <md-card class="example-card" style="padding: 0px;">
+        <md-card-header style="background: #A5B3FF">
+          <md-card-title style="padding: 15px 5px 0px;">Created Activity</md-card-title>
+        </md-card-header>
+        <md-card-content>
+          <div class="col-md-12 top-margin" *ngFor="let itm of listdata">
+
+              <span *ngFor="let data of itm">
+                <div class="col-md-3" >
+                <md-card-title class="h4">{{data.key}}</md-card-title>
+                <md-card-content> <md-chip-list>
+                  <md-chip style="margin-top: 10px;" *ngFor="let item of data.value;let i=index" (click)="addroles(item)">{{item || 'NA'}}</md-chip>
+                </md-chip-list></md-card-content>
+                </div>
+              </span>
+            <hr/>
+          </div>
+
+        </md-card-content>
+        <md-card-actions>
+          <button md-button>LIKE</button>
+          <button md-button>SHARE</button>
+        </md-card-actions>
+      </md-card>
+    </div>
+
   </app-sidenav>
 
 </div>
